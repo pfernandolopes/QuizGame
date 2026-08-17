@@ -7,7 +7,7 @@ const questions = [
         question: "O que são microplásticos de acordo com a definição científica?",
         options: [
             "Grandes pedaços de plástico boiando no oceano com mais de 10 centímetros.",
-            "Pequenas partículas de plástico com 5 milímetros de diâmetro ou menos.", // Correta[span_10](start_span)[span_10](end_span)
+            "Pequenas partículas de plástico com 5 milímetros de diâmetro ou menos.",
             "Garrafas PET inteiras recicladas e transformadas em sacolas de pano.",
             "Vidros moídos em praias que se parecem visualmente com plástico."
         ],
@@ -20,7 +20,7 @@ const questions = [
         question: "Qual é a diferença fundamental entre microplásticos PRIMÁRIOS e SECUNDÁRIOS?",
         options: [
             "Os primários vêm de garrafas velhas; os secundários vêm de pneus novos.",
-            "Os primários são fabricados propositalmente em tamanho pequeno; os secundários surgem da degradação de plásticos maiores.", // Correta[span_11](start_span)[span_11](end_span)
+            "Os primários são fabricados propositalmente em tamanho pequeno; os secundários surgem da degradação de plásticos maiores.",
             "Os primários são de origem natural; os secundários são produzidos por animais marinhos.",
             "Os primários flutuam na água doce; os secundários afundam na água salgada."
         ],
@@ -33,7 +33,7 @@ const questions = [
         question: "Por que o ato de aquecer alimentos ou bebidas em recipientes de plástico deve ser evitado?",
         options: [
             "Porque o pote absorve o cheiro do alimento e muda sua cor.",
-            "Porque o calor acelera a degradação do plástico, liberando milhões de micropartículas e compostos químicos na comida.", // Correta[span_12](start_span)[span_12](end_span)
+            "Porque o calor acelera a degradação do plástico, liberando milhões de micropartículas e compostos químicos na comida.",
             "Porque o micro-ondas deixa de funcionar ao entrar em contato com o plástico.",
             "Porque o alimento perde instantaneamente todas as suas calorias."
         ],
@@ -46,7 +46,7 @@ const questions = [
         question: "Lavar roupas de tecidos sintéticos (como poliéster e nylon) solta milhares de microfibras. Qual procedimento reduz essa liberação?",
         options: [
             "Lavar com água fervendo em ciclos extremamente longos e intensos.",
-            "Lavar com água fria e utilizar ciclos de lavagem mais curtos.", // Correta[span_13](start_span)[span_13](end_span)
+            "Lavar com água fria e utilizar ciclos de lavagem mais curtos.",
             "Usar alvejante forte e esfregar as peças com escova de aço.",
             "Deixar a roupa de molho no sol forte por vários dias antes de lavar."
         ],
@@ -59,7 +59,7 @@ const questions = [
         question: "Por que o microplástico é considerado um 'poluente invisível e altamente persistente'?",
         options: [
             "Porque ele se dissolve quimicamente em poucas horas na água do mar.",
-            "Porque seu tamanho microscópico dificulta a identificação e recolhimento, enquanto sua estrutura sintética leva até séculos para se decompor.", // Correta[span_14](start_span)[span_14](end_span)
+            "Porque seu tamanho microscópico dificulta a identificação e recolhimento, enquanto sua estrutura sintética leva até séculos para se decompor.",
             "Porque ele voa para fora da atmosfera terrestre logo após ser descartado no lixo.",
             "Porque ele se transforma em gás carbônico assim que toca o solo."
         ],
@@ -105,7 +105,8 @@ function loadQuestion() {
     q.options.forEach((opt, index) => {
         const button = document.createElement("button");
         button.classList.add("option-btn");
-        button.textContent = `${String.fromCharCode(65 +)}) ${opt}`;
+        // Correção aplicada aqui (65 + index)
+        button.textContent = `${String.fromCharCode(65 + index)}) ${opt}`;
         button.addEventListener("click", () => selectOption(index, button));
         containerOptions.appendChild(button);
     });
