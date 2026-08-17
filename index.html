@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Show do Milhão: Edição Microplásticos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0b192c">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Tela Inicial -->
+        <div id="screen-start" class="screen active">
+            <h1>Show dos<br><span>Microplásticos</span></h1>
+            <p>Teste seus conhecimentos sobre a ameaça invisível dos oceanos!</p>
+            <button id="btn-start" class="btn">INICIAR JOGO</button>
+        </div>
+
+        <!-- Tela do Jogo -->
+        <div id="screen-game" class="screen">
+            <header class="game-header">
+                <div id="level-indicator">Nível: <span id="current-level">1</span>/5</div>
+                <div id="prize-indicator">Prêmio: <span id="current-prize">R$ 1.000</span></div>
+            </header>
+
+            <div class="question-box">
+                <p id="question-text">Carregando pergunta...</p>
+            </div>
+
+            <div class="options-grid" id="options-container">
+                <!-- As opções serão injetadas via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Tela de Fim de Jogo (Vitória ou Derrota) -->
+        <div id="screen-gameover" class="screen">
+            <h2 id="gameover-title">Fim de Jogo</h2>
+            <p id="gameover-message">Você chegou até aqui!</p>
+            <button id="btn-restart" class="btn">JOGAR NOVAMENTE</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Registro básico do Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log("PWA Service Worker registrado com sucesso."));
+        }
+    </script>
+</body>
+</html>
