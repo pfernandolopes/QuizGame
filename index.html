@@ -343,7 +343,7 @@
             // NÍVEL 5
             [
                 {
-                    question: "Ao analisar as três maiores fontes de microplásticos (roupas sintéticas, pneus e lixo plástico), qual é o ponto em comum no ciclo de contaminação marinha?",
+                    question: "Ao analisar as três maiores fontes de microplásticos (roupas sintéticas, pneus e lixo plástico), qual é o ponto em común no ciclo de contaminação marinha?",
                     options: [
                         "Nenhuma dessas fontes depende da ação do vento ou das chuvas para chegar aos rios.",
                         "Todas decorrem de atividades humanas cotidianas e geram partículas difusas que são carreadas pela água das chuvas e esgotos até os oceanos.",
@@ -376,7 +376,8 @@
         ];
 
         let currentLevel = 0;
-        let currentQuestion = null;
+        let currentOptionsMapped = [];
+        let correctOptionIndex = 0;
 
         const screenStart = document.getElementById("screen-start");
         const screenGame = document.getElementById("screen-game");
@@ -412,17 +413,32 @@
         function loadQuestion() {
             currentLevelIndicator.textContent = currentLevel + 1;
             
+            // Sorteia uma pergunta aleatória do nível atual
             const pool = levelsData[currentLevel];
             const randomIndex = Math.floor(Math.random() * pool.length);
-            currentQuestion = pool[randomIndex];
+            const q = pool[randomIndex];
 
-            textQuestion.textContent = currentQuestion.question;
+            textQuestion.textContent = q.question;
+            
+            // Cria um array de objetos unindo a opção ao seu estado de correta ou não
+            let optionsWithStatus = q.options.map((opt, idx) => {
+                return { text: opt, isCorrect: idx === q.answer };
+            });
+
+            // Embaralha aleatoriamente as alternativas para mudar a letra da resposta correta
+            optionsWithStatus.sort(() => Math.random() - 0.5);
+
+            currentOptionsMapped = optionsWithStatus;
             
             containerOptions.innerHTML = "";
-            currentQuestion.options.forEach((opt, index) => {
+            currentOptionsMapped.forEach((item, index) => {
+                if (item.isCorrect) {
+                    correctOptionIndex = index; // Guarda a nova posição da resposta certa
+                }
+
                 const button = document.createElement("button");
                 button.classList.add("option-btn");
-                button.textContent = `${String.fromCharCode(65 + index)}) ${opt}`;
+                button.textContent = `${String.fromCharCode(65 + index)}) ${item.text}`;
                 button.addEventListener("click", () => selectOption(index, button));
                 containerOptions.appendChild(button);
             });
@@ -432,7 +448,7 @@
             const allButtons = containerOptions.querySelectorAll(".option-btn");
             allButtons.forEach(btn => btn.disabled = true);
 
-            if (selectedIndex === currentQuestion.answer) {
+            if (selectedIndex === correctOptionIndex) {
                 buttonElement.classList.add("correct");
                 setTimeout(() => {
                     if (currentLevel === levelsData.length - 1) {
@@ -444,7 +460,7 @@
                 }, 1500);
             } else {
                 buttonElement.classList.add("wrong");
-                allButtons[currentQuestion.answer].classList.add("correct");
+                allButtons[correctOptionIndex].classList.add("correct");
                 setTimeout(() => {
                     endGame(false, "FIM DE JOGO!", `Você errou no Nível ${currentLevel + 1}. Continue estudando sobre a preservação dos oceanos!`);
                 }, 2000);
